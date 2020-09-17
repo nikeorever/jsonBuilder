@@ -28,12 +28,31 @@ val dokkaJarTaskProvider = tasks.register<Jar>("dokkaJar") {
     dependsOn("dokkaHtml")
 }
 
-println(dokkaJarTaskProvider.get().outputs)
+val isReleaseBuild: Boolean get() = !version.toString().endsWith("-SNAPSHOT")
 
 publishing {
     repositories {
         maven {
-            url = uri("/home/xianxueliang/IdeaProjects/gradle/mavenRepository/snapshots")
+            url = uri(
+                if (isReleaseBuild) {
+                    "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                } else {
+                    "https://oss.sonatype.org/content/repositories/snapshots"
+                }
+            )
+
+            credentials {
+                username = if (project.hasProperty("SONATYPE_NEXUS_USERNAME")) {
+                    project.property("SONATYPE_NEXUS_USERNAME").toString()
+                } else {
+                    ""
+                }
+                password = if (project.hasProperty("SONATYPE_NEXUS_PASSWORD")) {
+                    project.property("SONATYPE_NEXUS_PASSWORD").toString()
+                } else {
+                    ""
+                }
+            }
         }
     }
 
@@ -44,8 +63,8 @@ publishing {
             artifact(dokkaJarTaskProvider.get())
 
             pom {
-                name.set("JsonBuilder")
-                description.set("An API for constructing JSON.")
+                name.set("jsonBuilder")
+                description.set("A Kotlin DSL and Kotlin builder API for constructing json.")
                 url.set("https://github.com/nikeorever/jsonBuilder")
                 licenses {
                     license {
@@ -69,9 +88,18 @@ publishing {
     }
 }
 
-signing {
-    sign(publishing.publications["release"])
+if (isReleaseBuild) {
+    signing {
+        sign(publishing.publications["release"])
+    }
 }
+
+tasks.register("publishSnapshot") {
+    if (!isReleaseBuild) {
+        dependsOn(tasks.getByName("publish"))
+    }
+}
+
 dependencies {
     implementation("org.json:json:20200518")
     testImplementation("junit:junit:4.13")
