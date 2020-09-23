@@ -33,13 +33,13 @@ internal class JSONObjectDslImpl : JSONObjectDsl {
         jsonObject.put(this, value)
     }
 
-    override fun String.to(value: Arr) {
+    override fun String.to(value: arr) {
         val impl = JSONArrayDslImpl()
         impl.apply(value.content)
         jsonObject.put(this, impl.jsonArray)
     }
 
-    override fun String.to(value: Obj) {
+    override fun String.to(value: obj) {
         val impl = JSONObjectDslImpl()
         impl.apply(value.content)
         jsonObject.put(this, impl.jsonObject)

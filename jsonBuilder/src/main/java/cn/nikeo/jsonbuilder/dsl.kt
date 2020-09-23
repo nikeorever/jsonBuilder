@@ -1,17 +1,25 @@
 package cn.nikeo.jsonbuilder
 
 /**
- * Build JSON Object
+ * Build JSON Array
  */
-fun buildJSONObject(content: JSONObjectDsl.() -> Unit): String {
-    return JSONObjectDslImpl().apply(content).toString()
+@Suppress("ClassName")
+class arr(internal val content: JSONArrayDsl.() -> Unit) {
+
+    override fun toString(): String {
+        return JSONArrayDslImpl().apply(content).toString()
+    }
 }
 
 /**
- * Build JSON Array
+ * Build JSON Object
  */
-fun buildJSONArray(content: JSONArrayDsl.() -> Unit): String {
-    return JSONArrayDslImpl().apply(content).toString()
+@Suppress("ClassName")
+class obj(internal val content: JSONObjectDsl.() -> Unit) {
+
+    override fun toString(): String {
+        return JSONObjectDslImpl().apply(content).toString()
+    }
 }
 
 @DslMarker
@@ -39,9 +47,6 @@ interface JSONObjectDsl {
     infix fun String.to(value: Any)
     infix fun String.to(value: String)
     infix fun String.to(value: Boolean)
-    infix fun String.to(value: Arr)
-    infix fun String.to(value: Obj)
+    infix fun String.to(value: arr)
+    infix fun String.to(value: obj)
 }
-
-class Arr(val content: JSONArrayDsl.() -> Unit)
-class Obj(val content: JSONObjectDsl.() -> Unit)

@@ -5,11 +5,11 @@ A Kotlin DSL and Kotlin builder API for constructing json.
 
 DSL:
 ```kotlin
-buildJSONObject {
+obj {
     "book_category" to "Programming and development"
     "book_ratings" to 5
     "book_language" to "English"
-    "books" to Arr {
+    "books" to arr {
         obj {
             "book_name" to "Orphan Black Classified Clone Reports: The Secret Files of Dr. Delphine Cormier (English Edition)"
             "book_author" to "Delphine Cormier"
@@ -23,7 +23,7 @@ buildJSONObject {
     }
 }
 ```
-JSON:
+JSON(After formatting):
 ```json
 {
   "book_category": "Programming and development",
@@ -54,7 +54,7 @@ repositories {
 }
 
 dependencies {
-    implementation("cn.nikeo.jsonBuilder:jsonBuilder:0.1.0")
+    implementation("cn.nikeo.jsonBuilder:jsonBuilder:0.2.0")
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 <dependency>
   <groupId>cn.nikeo.jsonBuilder</groupId>
   <artifactId>jsonBuilder</artifactId>
-  <version>0.1.0</version>
+  <version>0.2.0</version>
   <type>module</type>
 </dependency>
 ```

@@ -15,7 +15,7 @@ allprojects {
 
 subprojects {
     group = "cn.nikeo.jsonBuilder"
-    version = "0.2.0-SNAPSHOT"
+    version = "0.2.0"
 
     plugins.withId("org.jetbrains.kotlin.jvm") {
         tasks.withType<KotlinCompile> {
