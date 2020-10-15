@@ -1,6 +1,8 @@
 jsonBuilder
 ===========
 
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/cn.nikeo.jsonBuilder/jsonBuilder/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cn.nikeo.jsonBuilder/jsonBuilder)
+
 A Kotlin DSL and Kotlin builder API for constructing json.
 
 DSL:
